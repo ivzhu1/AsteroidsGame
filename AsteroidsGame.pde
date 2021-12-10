@@ -1,9 +1,10 @@
 Spaceship ship = new Spaceship();
 ArrayList <Asteroid> rocks = new ArrayList <Asteroid>();
+ArrayList <Bullet> shots = new ArrayList <Bullet>();
 Star[] stars = new Star[250];
 boolean[] keyDown = new boolean[5];
 float c;
-int health = 100;
+float health = 100;
 boolean endGame = false;
 int random,random2,r,s;
 double time = 0;
@@ -46,11 +47,23 @@ public void draw()
     ship.accelerate(.05);
   if (keyDown[3] == true)
     ship.accelerate(-.05);
+  if (keyDown[4] == true)
+    shots.add(new Bullet(ship));
   ship.move();
+  for(int i = 0; i < shots.size(); i++){
+    shots.get(i).move();
+    shots.get(i).show();
+    for(int j = 0; j < rocks.size(); j++){
+      if(dist((float)rocks.get(j).getCenterX(), (float)rocks.get(j).getCenterY(), (float)shots.get(i).getCenterX(), (float)shots.get(i).getCenterY()) < 20){
+        rocks.remove(rocks.get(j));
+        health += 0.1;
+      }
+    }
+  }
   ship.show();
   textSize(15);
   fill(255);
-  text("Health: " + health, 600, 30);
+  text("Health: " + (int)health, 600, 30);
   text("Number of Asteroids: " + rocks.size(), 500, 60);
   text("Time: " + (int)time, 620,90);
   if(endGame == true){
@@ -68,23 +81,35 @@ public void draw()
     ship.setCenterY(350);
     for(int i = rocks.size()-1; i>=0; i--)
       rocks.remove(i);
+    for(int i = shots.size()-1; i>=0; i--)
+      shots.remove(i);
   }
   if(endGame == false){
     time += 0.008333333333;
     random = (int)(Math.random()*1000);
     random2 = (int)(Math.random()*600);
     if(time >= 60){
-      if(random2 == 5 || random2 == 4)
+      if(random2 <= 5){
         rocks.add(new Asteroid());
+        rocks.add(new Asteroid());
+        rocks.add(new Asteroid());
+        if(rocks.size()>10){
+          rocks.add(new Asteroid());
+          rocks.add(new Asteroid());
+          rocks.add(new Asteroid());
+        }
+      }
     } else if(time >= 30){
-      if(random2 == 5)
+      if(random2 <= 2){
         rocks.add(new Asteroid());
+        rocks.add(new Asteroid());
+      }
     } else {
       if(random == 5)
         rocks.add(new Asteroid());
     }
     if(rocks.size() <= 5)
-      for(int i = 0; i < (int)(Math.random()*5)+1; i++)
+      for(int i = 0; i < (int)(Math.random()*4)+3; i++)
         rocks.add(new Asteroid());
   }
   r = (int)(Math.random()*2);
@@ -99,6 +124,8 @@ public void keyPressed() {
     keyDown[2] = true;
   else if (key == 's')
     keyDown[3] = true;
+  if (key == ' ')
+    keyDown[4] = true;
   if (key == 'h') {
     ship.setCenterX((Math.random()*700));
     ship.setCenterY((Math.random()*700));
@@ -114,12 +141,6 @@ public void keyPressed() {
     time = 0;
     endGame = false;  
   }
-  if(key == '=' && endGame == false){
-    for(int i = 0; i < 3; i++)
-      rocks.add(new Asteroid());
-  }
-  if(key == '[' && endGame == false)
-    health += 10;
 }
 public void keyReleased() {
   if (key == 'a')
@@ -130,5 +151,6 @@ public void keyReleased() {
     keyDown[2] = false;
   } else if (key == 's')
     keyDown[3] = false;
+  if (key == ' ')
+    keyDown[4] = false;
 }
-
