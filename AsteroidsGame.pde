@@ -66,7 +66,7 @@ public void draw()
   textSize(15);
   fill(255);
   text("Health: " + (int)health, 600, 30);
-  text("Number of Asteroids: " + rocks.size(), 500, 60);
+  text("Number of Asteroids: " + rocks.size(), 510, 60);
   text("Time: " + (int)time, 620,90);
   if(endGame == true){
     fill(0,0,0);
