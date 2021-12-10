@@ -59,6 +59,8 @@ public void draw()
         health += 0.1;
       }
     }
+    if(shots.get(i).getCenterX() > width+200 || shots.get(i).getCenterX() < -200 || shots.get(i).getCenterY() > height+200 || shots.get(i).getCenterY() < -200)
+      shots.remove(shots.get(i));
   }
   ship.show();
   textSize(15);
