@@ -95,7 +95,8 @@ public void draw()
         rocks.add(new Asteroid());
         rocks.add(new Asteroid());
         rocks.add(new Asteroid());
-        if(rocks.size()>10){
+        if(rocks.size()<10){
+          rocks.add(new Asteroid());
           rocks.add(new Asteroid());
           rocks.add(new Asteroid());
           rocks.add(new Asteroid());
