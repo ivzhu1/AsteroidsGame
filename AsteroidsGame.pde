@@ -91,12 +91,14 @@ public void draw()
     random = (int)(Math.random()*1000);
     random2 = (int)(Math.random()*600);
     if(time >= 90){
-     if(random2 <= 10){
+     if(random2 <= 15){
         rocks.add(new Asteroid());
         rocks.add(new Asteroid());
         rocks.add(new Asteroid());
      }
         if(rocks.size()<20){
+          rocks.add(new Asteroid());
+          rocks.add(new Asteroid());
           rocks.add(new Asteroid());
           rocks.add(new Asteroid());
           rocks.add(new Asteroid());
