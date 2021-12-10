@@ -100,7 +100,9 @@ public void draw()
           rocks.add(new Asteroid());
           rocks.add(new Asteroid());
           rocks.add(new Asteroid());
-    }else if(time >= 60){
+        }
+      }
+    } else if(time >= 60){
       if(random2 <= 5){
         rocks.add(new Asteroid());
         rocks.add(new Asteroid());
